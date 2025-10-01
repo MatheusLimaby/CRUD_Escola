@@ -1,8 +1,25 @@
 const express = require('express');
 const router = express.Router();
 
-let boletins = [];
-let nextId = 1;
+let nextId = 3; // começa do 3, já que teremos 2 exemplos prontos
+
+// Lista com 2 boletins de exemplo
+let boletins = [
+  {
+    id: 1,
+    titulo: "Boletim de Ocorrência - Furto",
+    descricao: "Relato de furto ocorrido no centro da cidade",
+    data: "2025-09-30",
+    autor: "João Silva"
+  },
+  {
+    id: 2,
+    titulo: "Boletim de Ocorrência - Acidente",
+    descricao: "Colisão entre dois veículos na avenida principal",
+    data: "2025-10-01",
+    autor: "Maria Souza"
+  }
+];
 
 // Criar boletim
 router.post('/', (req, res) => {
