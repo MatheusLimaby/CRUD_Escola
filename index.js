@@ -7,6 +7,8 @@ app.use(express.json());
 // TODO: Membro 1 - Importar e mapear rota de Alunos
 
 // TODO: Membro 2 - Importar e mapear rota de Professores
+const professoresRouter = require("./routes/professores")
+app.use(professoresRouter)
 
 // TODO: Membro 3 - Importar e mapear rota de Turmas
 
