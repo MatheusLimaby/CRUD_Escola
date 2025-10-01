@@ -2,13 +2,20 @@ const express = require("express");
 const cors = require("cors");
 
 const app = express();
+const turmasRoutes = require("./routes/turmas");
 app.use(cors());
 app.use(express.json());
+
+
+
+
 // TODO: Membro 1 - Importar e mapear rota de Alunos
 
 // TODO: Membro 2 - Importar e mapear rota de Professores
 
 // TODO: Membro 3 - Importar e mapear rota de Turmas
+app.use("/turmas", turmasRoutes);
+
 
 // TODO: Membro 4 - Importar e mapear rota de Disciplinas
 
