@@ -1,57 +1,101 @@
-const express = require('express');
-const router = express.Router();
+const express = require('express')
+const router = express.Router()
 
-let nextId = 3; // começa do 3, já que teremos 2 exemplos prontos
-
-// Lista com 2 boletins de exemplo
-let boletins = [
+// lista de boletins pra simular o banco de dados
+let listaBoletins = [
   {
     id: 1,
-    titulo: "Boletim de Ocorrência - Furto",
-    descricao: "Relato de furto ocorrido no centro da cidade",
-    data: "2025-09-30",
-    autor: "João Silva"
+    aluno: "João Silva",
+    disciplina: "Matemática",
+    nota: 8.5,
+    data: "2025-09-30"
   },
   {
     id: 2,
-    titulo: "Boletim de Ocorrência - Acidente",
-    descricao: "Colisão entre dois veículos na avenida principal",
-    data: "2025-10-01",
-    autor: "Maria Souza"
+    aluno: "Maria Souza",
+    disciplina: "História",
+    nota: 9.0,
+    data: "2025-10-01"
+  },
+]
+
+// #Busca
+// GET /boletins
+router.get('/boletins', (req, res, next) => {
+  res.json(listaBoletins)
+})
+
+// #Busca por id
+// GET /boletins/:id
+router.get('/boletins/:id', (req, res, next) => {
+  const id = req.params.id
+  const boletim = listaBoletins.find(b => b.id == id)
+
+  if (!boletim) {
+    return res.status(404).json({ error: "Boletim não encontrado!!!" })
   }
-];
 
-// Criar boletim
-router.post('/', (req, res) => {
-  const boletim = { id: nextId++, ...req.body };
-  boletins.push(boletim);
-  res.status(201).json(boletim);
-});
+  res.json(boletim)
+})
 
-// Listar todos
-router.get('/', (req, res) => res.json(boletins));
+// #Criação
+// POST /boletins
+router.post('/boletins', (req, res, next) => {
+  const { aluno, disciplina, nota, data } = req.body
 
-// Buscar por ID
-router.get('/:id', (req, res) => {
-  const b = boletins.find(b => b.id == req.params.id);
-  if (!b) return res.status(404).json({ error: 'Boletim não encontrado' });
-  res.json(b);
-});
+  // Validando se todos os campos foram preenchidos
+  if (!aluno || !disciplina || nota === undefined || !data) {
+    return res.status(400).json({ error: "aluno, disciplina, nota e data são obrigatórios!!!" })
+  }
 
-// Atualizar boletim
-router.put('/:id', (req, res) => {
-  const index = boletins.findIndex(b => b.id == req.params.id);
-  if (index === -1) return res.status(404).json({ error: 'Boletim não encontrado' });
-  boletins[index] = { id: boletins[index].id, ...req.body };
-  res.json(boletins[index]);
-});
+  const novoBoletim = {
+    id: Date.now(),
+    aluno,
+    disciplina,
+    nota,
+    data
+  }
 
-// Deletar boletim
-router.delete('/:id', (req, res) => {
-  const index = boletins.findIndex(b => b.id == req.params.id);
-  if (index === -1) return res.status(404).json({ error: 'Boletim não encontrado' });
-  const deleted = boletins.splice(index, 1);
-  res.json(deleted[0]);
-});
+  listaBoletins.push(novoBoletim)
+  res.status(201).json({ message: "Boletim cadastrado com sucesso!!!", novoBoletim })
+})
 
-module.exports = router;
+// #Atualização
+// PUT /boletins/:id
+router.put('/boletins/:id', (req, res, next) => {
+  const id = req.params.id
+  const boletim = listaBoletins.find(b => b.id == id)
+
+  if (!boletim) {
+    return res.status(404).json({ error: "Boletim não encontrado!!!" })
+  }
+
+  const { aluno, disciplina, nota, data } = req.body
+  if (!aluno || !disciplina || nota === undefined || !data) {
+    return res.status(400).json({ error: "aluno, disciplina, nota e data são obrigatórios!!!" })
+  }
+
+  boletim.aluno = aluno
+  boletim.disciplina = disciplina
+  boletim.nota = nota
+  boletim.data = data
+
+  res.json({ message: "Boletim atualizado com sucesso!!!", boletim })
+})
+
+// #Remoção
+// DELETE /boletins/:id
+router.delete('/boletins/:id', (req, res, next) => {
+  const id = req.params.id
+  const boletim = listaBoletins.find(b => b.id == id)
+
+  if (!boletim) {
+    return res.status(404).json({ error: "Boletim não encontrado!!!" })
+  }
+
+  listaBoletins = listaBoletins.filter(b => b.id != id)
+  res.json({ message: "Boletim excluído com sucesso!!!" })
+})
+
+// exportar o roteador
+module.exports = router

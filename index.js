@@ -16,9 +16,9 @@ app.use(express.json());
 // TODO: Membro 5 - Importar e mapear rota de Boletins
 
 const BoletinsRotas =  require("./routes/boletins");
-app.use("/boletins", BoletinsRotas);
+app.use(BoletinsRotas);
 
 // --------------------------------------------- //
 app.listen(3000, () => {
-  console.log("Server is running on http://localhost:3000");
-});
+  console.log("Aplicação rodando em http://localhost:3000")
+  })
