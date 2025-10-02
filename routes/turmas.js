@@ -7,12 +7,12 @@ let turmas = [
   { id: 2, nome: "2º Ano B", ano: 2025, turno: "Vespertino" },
 ];
 
-// ✅ LISTAR todas as turmas
+//  LISTAR todas as turmas
 router.get("/", (req, res) => {
   res.json(turmas);
 });
 
-// ✅ BUSCAR turma por ID
+//  BUSCAR turma por ID
 router.get("/:id", (req, res) => {
   const turma = turmas.find((t) => t.id === parseInt(req.params.id));
   if (!turma) {
@@ -21,7 +21,7 @@ router.get("/:id", (req, res) => {
   res.json(turma);
 });
 
-// ✅ CRIAR nova turma
+//  CRIAR nova turma
 router.post("/", (req, res) => {
   const { nome, ano, turno } = req.body;
 
@@ -40,7 +40,7 @@ router.post("/", (req, res) => {
   res.status(201).json(novaTurma);
 });
 
-// ✅ ATUALIZAR turma
+//  ATUALIZAR turma
 router.put("/:id", (req, res) => {
   const { id } = req.params;
   const { nome, ano, turno } = req.body;
@@ -61,7 +61,7 @@ router.put("/:id", (req, res) => {
   res.json(turma);
 });
 
-// ✅ DELETAR turma
+//  DELETAR turma
 router.delete("/:id", (req, res) => {
   const { id } = req.params;
   const index = turmas.findIndex((t) => t.id === parseInt(id));
