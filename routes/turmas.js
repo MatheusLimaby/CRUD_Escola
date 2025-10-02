@@ -8,12 +8,12 @@ let turmas = [
 ];
 
 // ✅ LISTAR todas as turmas
-router.get("/", (req, res) => {
+router.get("/turmas/", (req, res) => {
   res.json(turmas);
 });
 
 // ✅ BUSCAR turma por ID
-router.get("/:id", (req, res) => {
+router.get("turmas/:id", (req, res) => {
   const turma = turmas.find((t) => t.id === parseInt(req.params.id));
   if (!turma) {
     return res.status(404).json({ message: "Turma não encontrada" });
@@ -22,7 +22,7 @@ router.get("/:id", (req, res) => {
 });
 
 // ✅ CRIAR nova turma
-router.post("/", (req, res) => {
+router.post("/turmas", (req, res) => {
   const { nome, ano, turno } = req.body;
 
   if (!nome || !ano || !turno) {
@@ -41,7 +41,7 @@ router.post("/", (req, res) => {
 });
 
 // ✅ ATUALIZAR turma
-router.put("/:id", (req, res) => {
+router.put("/turmas/:id", (req, res) => {
   const { id } = req.params;
   const { nome, ano, turno } = req.body;
 
@@ -62,7 +62,7 @@ router.put("/:id", (req, res) => {
 });
 
 // ✅ DELETAR turma
-router.delete("/:id", (req, res) => {
+router.delete("/turmas/:id", (req, res) => {
   const { id } = req.params;
   const index = turmas.findIndex((t) => t.id === parseInt(id));
 
