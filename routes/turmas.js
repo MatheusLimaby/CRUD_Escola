@@ -13,7 +13,7 @@ router.get("/turmas/", (req, res) => {
 });
 
 // ✅ BUSCAR turma por ID
-router.get("turmas/:id", (req, res) => {
+router.get("/turmas/:id", (req, res) => {
   const turma = turmas.find((t) => t.id === parseInt(req.params.id));
   if (!turma) {
     return res.status(404).json({ message: "Turma não encontrada" });
