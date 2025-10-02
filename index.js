@@ -12,6 +12,9 @@ app.use(express.json());
 // TODO: Membro 2 - Importar e mapear rota de Professores
 
 // TODO: Membro 3 - Importar e mapear rota de Turmas
+const turmasRoutes = require("./routes/turmas");
+app.use("/turmas", turmasRoutes);
+
 
 // TODO: Membro 4 - Importar e mapear rota de Disciplinas
 
