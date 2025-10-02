@@ -7,13 +7,13 @@ let turmas = [
   { id: 2, nome: "2º Ano B", ano: 2025, turno: "Vespertino" },
 ];
 
-//  LISTAR todas as turmas
-router.get("/", (req, res) => {
+// ✅ LISTAR todas as turmas
+router.get("/turmas/", (req, res) => {
   res.json(turmas);
 });
 
-//  BUSCAR turma por ID
-router.get("/:id", (req, res) => {
+// ✅ BUSCAR turma por ID
+router.get("/turmas/:id", (req, res) => {
   const turma = turmas.find((t) => t.id === parseInt(req.params.id));
   if (!turma) {
     return res.status(404).json({ message: "Turma não encontrada" });
@@ -21,8 +21,8 @@ router.get("/:id", (req, res) => {
   res.json(turma);
 });
 
-//  CRIAR nova turma
-router.post("/", (req, res) => {
+// ✅ CRIAR nova turma
+router.post("/turmas", (req, res) => {
   const { nome, ano, turno } = req.body;
 
   if (!nome || !ano || !turno) {
@@ -40,8 +40,8 @@ router.post("/", (req, res) => {
   res.status(201).json(novaTurma);
 });
 
-//  ATUALIZAR turma
-router.put("/:id", (req, res) => {
+// ✅ ATUALIZAR turma
+router.put("/turmas/:id", (req, res) => {
   const { id } = req.params;
   const { nome, ano, turno } = req.body;
 
@@ -61,8 +61,8 @@ router.put("/:id", (req, res) => {
   res.json(turma);
 });
 
-//  DELETAR turma
-router.delete("/:id", (req, res) => {
+// ✅ DELETAR turma
+router.delete("/turmas/:id", (req, res) => {
   const { id } = req.params;
   const index = turmas.findIndex((t) => t.id === parseInt(id));
 
