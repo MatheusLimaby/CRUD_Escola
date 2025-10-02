@@ -3,19 +3,19 @@ const router = express.Router();
 let disciplinas = require('../src/data');
 
 // GET - listar todas as disciplinas
-router.get('/', (req, res) => {
+router.get('/disciplina/', (req, res) => {
     res.json(disciplinas);
 });
 
 // GET - buscar disciplina por id
-router.get('/:id', (req, res) => {
+router.get('/disciplina/:id', (req, res) => {
     const disciplina = disciplinas.find(d => d.id == req.params.id);
     if (!disciplina) return res.status(404).json({ erro: "Disciplina não encontrada" });
     res.json(disciplina);
 });
 
 // POST - criar nova disciplina
-router.post('/', (req, res) => {
+router.post('/disciplina', (req, res) => {
     const { nome, cargaHoraria, professor } = req.body;
 
     if (!nome || !cargaHoraria || !professor) {
@@ -34,7 +34,7 @@ router.post('/', (req, res) => {
 });
 
 // PUT - atualizar disciplina
-router.put('/:id', (req, res) => {
+router.put('/disciplina/:id', (req, res) => {
     const disciplina = disciplinas.find(d => d.id == req.params.id);
     if (!disciplina) return res.status(404).json({ erro: "Disciplina não encontrada" });
 
@@ -51,7 +51,7 @@ router.put('/:id', (req, res) => {
 });
 
 // DELETE - remover disciplina
-router.delete('/:id', (req, res) => {
+router.delete('/disciplina/:id', (req, res) => {
     const index = disciplinas.findIndex(d => d.id == req.params.id);
     if (index === -1) return res.status(404).json({ erro: "Disciplina não encontrada" });
 
